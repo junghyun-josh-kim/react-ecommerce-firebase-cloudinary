@@ -24,7 +24,7 @@ export function login() {
   signInWithPopup(auth, provider).catch(console.error);
 }
 
-export function logOut() {
+export function logout() {
   signOut(auth).catch(console.error);
 }
 
