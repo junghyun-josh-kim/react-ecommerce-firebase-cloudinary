@@ -3,21 +3,13 @@ import { Link } from 'react-router-dom';
 import { BsFillPencilFill } from 'react-icons/bs';
 import { FiShoppingBag } from 'react-icons/fi';
 import { login, logOut, onUserStateChange } from '../api/firebase';
+import User from './User';
 
 export default function Navbar() {
   const [user, setUser] = useState();
   useEffect(() => {
-    onUserStateChange((user) => {
-      console.log(user);
-      setUser(user);
-    });
+    onUserStateChange(setUser);
   }, []);
-  const handleLogin = () => {
-    login().then(setUser);
-  };
-  const handleLogOut = () => {
-    logOut().then(setUser);
-  };
   return (
     <header className='flex justify-between border-b border-gray-300 p-2'>
       <Link
@@ -37,8 +29,9 @@ export default function Navbar() {
         >
           <BsFillPencilFill />
         </Link>
-        {!user && <button onClick={handleLogin}>Login</button>}
-        {user && <button onClick={handleLogOut}>Logout</button>}
+        {user && <User user={user} />}
+        {!user && <button onClick={login}>Login</button>}
+        {user && <button onClick={logOut}>Logout</button>}
       </nav>
     </header>
   );

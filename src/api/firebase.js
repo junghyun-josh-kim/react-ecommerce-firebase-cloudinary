@@ -18,17 +18,12 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
-export async function login() {
-  return signInWithPopup(auth, provider)
-    .then((result) => {
-      const user = result.user;
-      return user;
-    })
-    .catch(console.error);
+export function login() {
+  signInWithPopup(auth, provider).catch(console.error);
 }
 
-export async function logOut() {
-  return signOut(auth).then(() => null);
+export function logOut() {
+  signOut(auth).catch(console.error);
 }
 
 export function onUserStateChange(callback) {
