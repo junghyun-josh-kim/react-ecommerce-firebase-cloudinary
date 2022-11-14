@@ -4,16 +4,17 @@ export default function ProductCard({
   product: { id, image, title, price, category },
 }) {
   return (
-    <li>
+    <li className='rounded-lg shadow-md overflow-hidden cursor-pointer'>
       <img
+        className='w-full'
         src={image}
         alt={title}
       />
-      <div>
-        <h3>{title}</h3>
+      <div className='mt-2 px-2 text-lg'>
+        <h3 className='truncate'>{title}</h3>
         <p>{`CAD $ ${price}`}</p>
       </div>
-      <p>{category}</p>
+      <p className='mb-2 px-2 text-gray-600'>{category}</p>
     </li>
   );
 }
