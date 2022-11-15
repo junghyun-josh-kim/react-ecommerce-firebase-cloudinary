@@ -6,6 +6,7 @@ import CartItem from '../components/CartItem';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { FaEquals } from 'react-icons/fa';
 import PriceCard from '../components/PriceCard';
+import Button from '../components/ui/Button';
 
 export default function MyCart() {
   const { uid } = useAuthContext();
@@ -22,12 +23,14 @@ export default function MyCart() {
   const HST = totalPrice * 1.13 - totalPrice;
 
   return (
-    <section>
-      <p>My Cart</p>
+    <section className='p-8 flex flex-col'>
+      <p className='text-2xl text-center font-bold pb-4 border-b border-gray-300'>
+        My Cart
+      </p>
       {!hasProducts && <p>Your cart is empty...</p>}
       {hasProducts && (
         <>
-          <ul>
+          <ul className='border-b border-gray-300 mb-8 px-8'>
             {products &&
               products.map((product) => (
                 <CartItem
@@ -37,22 +40,23 @@ export default function MyCart() {
                 />
               ))}
           </ul>
-          <div>
+          <div className='flex justify-between items-center mb-6 px-2 md:p-8 lg:px-16'>
             <PriceCard
               text='Summary'
               price={totalPrice}
             />
-            <BsFillPlusCircleFill />
+            <BsFillPlusCircleFill className='shrink-0' />
             <PriceCard
               text='HST'
               price={HST}
             />
-            <FaEquals />
+            <FaEquals className='shrink-0' />
             <PriceCard
               text='Total'
               price={totalPrice + HST}
             />
           </div>
+          <Button text='Checkout' />
         </>
       )}
     </section>
