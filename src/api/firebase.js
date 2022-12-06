@@ -29,6 +29,7 @@ export function logout() {
   signOut(auth).catch(console.error);
 }
 
+/* 유저 상태 감지(쿠키) */
 export function onUserStateChange(callback) {
   onAuthStateChanged(auth, async (user) => {
     const updatedUser = user ? await adminUser(user) : null;
@@ -58,6 +59,7 @@ export async function addNewProduct(product, image) {
   });
 }
 
+/* /menus에서 리스트 랜더할때 */
 export async function getProducts() {
   return get(ref(database, 'products')).then((snapshot) => {
     if (snapshot.exists()) {
@@ -67,6 +69,7 @@ export async function getProducts() {
   });
 }
 
+/* 장바구니에서 미리 업데이트 된 데이터 읽어올때 */
 export async function getCart(userId) {
   return get(ref(database, `carts/${userId}`)).then((snapshot) => {
     const items = snapshot.val() || {};
@@ -74,10 +77,12 @@ export async function getCart(userId) {
   });
 }
 
+/* 장바구니에서 데이터 수정할 때 */
 export async function addOrUpdateToCart(userId, product) {
   return set(ref(database, `carts/${userId}/${product.id}`), product);
 }
 
+/* 장바구니에서 데이터 삭제할 때 */
 export async function removeFromCart(userId, productId) {
   return remove(ref(database, `carts/${userId}/${productId}`));
 }
